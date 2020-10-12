@@ -6,6 +6,20 @@ function onReady() {
   console.log('page is READY');
 
   $('.js-btn-submit').on('click', submitEmployee);
+  // adding event listener for delete
+  $('.js-employee-list').on('click', '.js-btn-delete', deleteEmployee);
+}
+
+function deleteEmployee() {
+  // find individual employee
+  const index = $(this).data('index'); // data-index
+  // remove from employees
+  employees.splice(index, 1);
+  console.log(employees);
+  render();
+
+  // ONLY REMOVES FROM DOM
+  // $(this).parent().parent().remove()
 }
 
 function submitEmployee() {
@@ -33,17 +47,16 @@ function storeEmployee(newEmployee) {
 
 // TODO - clear fields
 
-// TODO - render employees to DOM (make function)
 function render() {
   const $employeeList = $('.js-employee-list');
   let totalAnnualSalary = 0;
   const monthsInYear = 12;
+  const maxMonthly = 20000;
 
   $employeeList.empty();
   for (let i = 0; i < employees.length; i++) {
     const employeeData = employees[i];
 
-    // TODO - function to calc monthly
     totalAnnualSalary += employeeData.annualSalary;
 
     $employeeList.append(`
@@ -53,7 +66,7 @@ function render() {
         <td>${employeeData.id}</td>
         <td>${employeeData.title}</td>
         <td>${employeeData.annualSalary}</td>
-        <td><button>Delete</button></td>
+        <td><button class="js-btn-delete" data-index="${i}">Delete</button></td>
       </tr>
     `);
   }
@@ -61,5 +74,11 @@ function render() {
   let monthlySalary = totalAnnualSalary / monthsInYear;
   // round for change to nearest cent
   monthlySalary = Math.round(monthlySalary * 100) / 100;
-  $('.js-monthly-salary').text(monthlySalary);
+
+  const $monthlySalaryEl = $('.js-monthly-salary');
+  $monthlySalaryEl.text(monthlySalary);
+
+  if (monthlySalary > maxMonthly) {
+    $monthlySalaryEl.parent().addClass('warning');
+  }
 }
