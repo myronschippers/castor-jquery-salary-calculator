@@ -19,7 +19,10 @@ function deleteEmployee() {
   render();
 
   // ONLY REMOVES FROM DOM
-  // $(this).parent().parent().remove()
+  // $(this)
+  //   .parent() // td
+  //   .parent() // tr
+  //   .remove();
 }
 
 function submitEmployee() {
@@ -50,8 +53,6 @@ function storeEmployee(newEmployee) {
 function render() {
   const $employeeList = $('.js-employee-list');
   let totalAnnualSalary = 0;
-  const monthsInYear = 12;
-  const maxMonthly = 20000;
 
   $employeeList.empty();
   for (let i = 0; i < employees.length; i++) {
@@ -71,6 +72,12 @@ function render() {
     `);
   }
 
+  renderMonthly(totalAnnualSalary);
+}
+
+function renderMonthly(totalAnnualSalary) {
+  const monthsInYear = 12;
+  const maxMonthly = 20000;
   let monthlySalary = totalAnnualSalary / monthsInYear;
   // round for change to nearest cent
   monthlySalary = Math.round(monthlySalary * 100) / 100;
@@ -80,5 +87,7 @@ function render() {
 
   if (monthlySalary > maxMonthly) {
     $monthlySalaryEl.parent().addClass('warning');
+  } else {
+    $monthlySalaryEl.parent().removeClass('warning');
   }
 }
