@@ -11,3 +11,21 @@ header {
   color: #ffffff;
   text-align: center;
 }
+
+.container {
+  padding: 0 15px 18px;
+}
+
+.rightContainer {
+  padding-top: 15px;
+  text-align: right;
+}
+
+.simpleTable {
+  border-collapse: collapse;
+}
+
+.simpleTable td {
+  border: 1px solid #353535;
+  padding: 8px 12px;
+}
