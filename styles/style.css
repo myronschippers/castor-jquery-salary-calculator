@@ -1,0 +1,13 @@
+html,
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+  padding: 15px;
+  margin: 0 0 15px;
+  background-color: royalblue;
+  color: #ffffff;
+  text-align: center;
+}
